@@ -1,0 +1,29 @@
+[project]
+name = "viss-mcp"
+version = "1.0.0"
+description = "MCP server för VISS - Miljökvalitetsnormer och statusklassning"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [
+    { name = "Länsstyrelsen Västra Götaland", email = "josef@lansstyrelsen.se" }
+]
+
+dependencies = [
+    "mcp>=1.0.0",
+    "fastmcp>=0.1.0",
+    "httpx>=0.27.0",
+    "pydantic>=2.0.0"
+]
+
+[project.scripts]
+viss-mcp = "viss_mcp.server:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.uv]
+dev-dependencies = [
+    "pytest>=7.0.0",
+    "pytest-asyncio>=0.21.0"
+]
