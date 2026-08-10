@@ -1,0 +1,30 @@
+# OAuth2 credentials — NEVER commit these.
+# Ignorera HELA katalogen, inte enskilda filnamn: den tidigare listan missade
+# token.json.gammal (backupen som reauth.py skapar) och den innehåller både
+# refresh_token och client_secret.
+credentials/*
+!credentials/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+.eggs/
+dist/
+build/
+.venv/
+venv/
+
+# uv
+.uv/
+uv.lock
+
+# Environment
+.env
+.env.local
+
+# IDE
+.vscode/
+.idea/
+*.swp
