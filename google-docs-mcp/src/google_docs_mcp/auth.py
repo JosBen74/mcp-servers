@@ -39,8 +39,10 @@ SCOPES = [
     "https://www.googleapis.com/auth/drive",        # List + search Drive
 ]
 
-# Paths relative to this file's parent package directory
-_PACKAGE_DIR = Path(__file__).parent.parent.parent  # repo root
+# Paths relative to this file's parent package directory.
+# resolve(): servern startas inte nodvandigtvis fran repo-roten, sa bade
+# credential-sokvagarna och sokvagen i felmeddelandet ska vara absoluta.
+_PACKAGE_DIR = Path(__file__).parent.parent.parent.resolve()  # repo root
 CREDENTIALS_DIR = _PACKAGE_DIR / "credentials"
 CLIENT_SECRET_PATH = CREDENTIALS_DIR / "client_secret.json"
 TOKEN_PATH = CREDENTIALS_DIR / "token.json"
@@ -53,10 +55,13 @@ INTERACTIVE_ENV_VAR = "GOOGLE_DOCS_MCP_ALLOW_INTERACTIVE"
 # hanger om anvandaren stanger browserfliken.
 INTERACTIVE_TIMEOUT_SECONDS = 300
 
+# Sokvagen harleds ur _PACKAGE_DIR i stallet for att hardkodas: felmeddelandet ska
+# peka pa DEN installation som faktiskt kraschade, aven om repot ligger nagon
+# annanstans an hos den som skrev koden.
 _REAUTH_INSTRUKTION = (
     "Kor ominloggning i ETT EGET terminalfonster (inte via Claude Code, som saknar "
     "stdin och browser):\n"
-    "    cd C:\\Users\\josef\\mcp-servers\\google-docs-mcp\n"
+    f"    cd {_PACKAGE_DIR}\n"
     "    uv run python reauth.py\n"
     "Starta darefter om Claude Code sa att servern laser den nya tokenen.\n"
     "Aterkommer felet inom nagra dygn: kontrollera att OAuth-samtyckesskarmen ar "
